@@ -201,4 +201,5 @@ Now, start the service:
 net start AdvancedSystemCareService9
 ```
 Boom! Got the root shell.
+
 ![Alt text](../Screenshots/Steel_Mountain/root_shell_no_metasploit.png)
