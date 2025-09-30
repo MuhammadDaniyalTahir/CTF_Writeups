@@ -11,7 +11,7 @@ Directly starting from Task_2.
 Run the following nmap command in order to scan the target machine.
 
 ```bash 
-sudo nmap -sS --top-ports 200 10.10.139.106
+sudo nmap -sS --top-ports 200 target_machine_ip
 ```
 ![Alt text](../Screenshots/Steel_Mountain/nmap_output.png)
 
