@@ -46,7 +46,7 @@ Then I searched for hfs keyword using command:
 It showed me following output:
 ![Alt text](../Screenshots/Steel_Mountain/metasploit_exploits.png)
 
-Then I selected 4th exploit and then set it's values. Conventionally, LHOST and LPORT means the attackers machine's information and LHSOT and LPORT means target's information. I filled that information and ran the exploit. See the output:
+Then I selected 4th exploit and then set it's values. Conventionally, LHOST and LPORT means the attackers machine's information and RHSOT and RPORT means target's information. I filled that information and ran the exploit. See the output:
 ![Alt text](../Screenshots/Steel_Mountain/meterpreter.png)
 
 Now, I changed my directory to `c:\Users\bill\Desktop\` and read the content of user.txt:
