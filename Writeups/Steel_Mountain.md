@@ -3,13 +3,16 @@
 Directly starting from Task_2.
 
 #### Question:Scan the machine with nmap. What is the other port running a web server on?
-#### Solution:
-##### Enumeration Part
+
+### Solution:
+
+#### Enumeration Part
 
 Run the following nmap command in order to scan the target machine.
 
-`sudo nmap -sS --top-ports 200 10.10.139.106`
-
+```bash 
+sudo nmap -sS --top-ports 200 10.10.139.106
+```
 Open the link to see the output of nmap: 
 ![Alt text](../Screenshots/Steel_Mountain/nmap_output.png)
 
