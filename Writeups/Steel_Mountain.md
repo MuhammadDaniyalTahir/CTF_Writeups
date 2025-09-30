@@ -46,8 +46,7 @@ Then I searched for hfs keyword using command:
 It showed me following output:
 ![Alt text](../Screenshots/Steel_Mountain/metasploit_exploits.png)
 
-Then I selected 4th exploit and then set it's values:
-Conventionally, LHOST and LPORT means the attackers machine's informationa and LHSOT and LPORT means target's information. I filled that information and ran the exploit. See the output:
+Then I selected 4th exploit and then set it's values. Conventionally, LHOST and LPORT means the attackers machine's information and LHSOT and LPORT means target's information. I filled that information and ran the exploit. See the output:
 ![Alt text](../Screenshots/Steel_Mountain/meterpreter.png)
 
 Now, I changed my directory to `c:\Users\bill\Desktop\` and read the content of user.txt:
@@ -98,16 +97,23 @@ If you get error while copying it, then first stop the service and then try to c
 Now, I stopped the service using the command:
 `net stop AdvancedSystemCareService9`
 Now, run the netcat on our attacking machine, I ran with the command:
-`nc -lvnp 4443`
+
+```
+nc -lvnp 4443
+```
 
 Now, start the service using the command:
-`net start AdvancedSystemCareService9`
+```
+net start AdvancedSystemCareService9
+```
 
 Boom! We've got the root shell at our attacking machine.
 ![Alt text](../Screenshots/Steel_Mountain/root_shell.png)
 
 Now, to get the flag, move the path "C:\Users\Administrator\Desktop", and run following command:
-`type root.txt`
+```
+type root.txt
+```
 Here's the flag!.
 
 ![Alt text](../Screenshots/Steel_Mountain/root_flag.png)
