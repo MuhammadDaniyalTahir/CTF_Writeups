@@ -1,6 +1,7 @@
 # Web shell upload via extension blacklist bypass
 
 I uploaded the webshell.php file but server gave me the following response:
+
 `Sorry, php files are not allowed
 Sorry, there was an error uploading your file.`
 
