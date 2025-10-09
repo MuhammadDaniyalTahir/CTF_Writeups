@@ -77,7 +77,13 @@ nc -lvnp 4443
 
 ![Alt text](../Screenshots/Alfred/Initial_access.png)
 
-Navigate to the directory `C:\users\bruce\Desktop` and run following command to 
+Navigate to the directory `C:\users\bruce\Desktop` and run following command to get the user flag:
+
+```cmd
+type user.txt
+```
+
+![Alt text](../Screenshots/Alfred/user_flag.png)
 
 ### **Task 2**
 
