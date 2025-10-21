@@ -168,4 +168,5 @@ Boom! We got the root access.
 
 Now You can find the flag in /root/root.txt.
 
-![Alt text](../Screenshots/GameZone/root_flag.png)
+![Alt text](../Screenshots/GameZone/root_flag.png).
+
