@@ -4,11 +4,11 @@ The first thing that we should do is network scanning through nmap:
 
 ```bash
 nmap -sV <target_ip>
-```p.png)
+```
 
-Now we can see that there are samba shares.
+![Alt text](../Screenshots/Skynet/nmap.png)
 
-![Alt text](../Screenshots/Skynet/nma Then I ran enumeration tool for linux target machine:
+Now we can see that there are samba shares. Then I ran enumeration tool for linux target machine:
 
 ```bash
 enum4linux -a <target_ip>
