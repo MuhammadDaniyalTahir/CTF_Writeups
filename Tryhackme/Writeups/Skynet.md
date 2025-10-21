@@ -15,12 +15,15 @@ enum4linux -a <target_ip>
 ```
 
 Moreover there is a listed user shown in the following image named `milesdyson`:
+
 ![Alt text](../Screenshots/Skynet/users.png)
 
 It gave me following share:
+
 ![Alt text](../Screenshots/Skynet/shares.png)
 
 Simaltaneously, I started directory enumeration and found the following results:
+
 ![Alt text](../Screenshots/Skynet/dir_enum.png)
 
 And there is an interesting directory seems `squirrelmail`. I visited it and found:
@@ -34,6 +37,7 @@ smbclient //<target_ip>/anonymous -N
 ```
 
 Now go into logs directory where you will find 3 log files:
+
 ![Alt text](../Screenshots/Skynet/logs.png)
 ```bash
 get log1.txt
@@ -45,6 +49,7 @@ hydra -l milesdyson -P log1.txt <target_ip> http-post-form \
 -V -t 16
 ```
 We found the password:
+
 ![Alt text](../Screenshots/Skynet/password_found_hydra.png)
 
 Now we have username and password, so let's try it on `squirrelmail` directory. Yes!! we logged in successfully as you can see:
