@@ -17,7 +17,7 @@ enum4linux -a <target_ip>
 Moreover there is a listed user shown in the following image named `milesdyson`:
 ![Alt text](../Screenshots/Skynet/users.png)
 
-It gave me following share
+It gave me following share:
 ![Alt text](../Screenshots/Skynet/shares.png)
 
 Simaltaneously, I started directory enumeration and found the following results:
